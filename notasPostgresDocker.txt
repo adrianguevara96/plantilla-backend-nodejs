@@ -1,0 +1,43 @@
+Doy unas recomendaciones:
+
+En cuanto a la version, viene siendo opcional desde la verison 1.27.0 de Docker.
+En cuanto a la image, puedes omitir latest o en su defecto seleccionar la versión que buscas:
+image: resource_name:version
+Es recomendable leer desde las variables de entorno los datos sensibles, estando en dev o no. Opción --env-file
+En cuanto al ports, cuando es el mismo (contenedor y host), basta con un solo número y sin ""
+En cuanto al volumes, no es necesario ~ ya que si quieres indexar desde un path se considera mejor ./, detalles del server o imagen base de tu postgres (algunos son alphine).
+✨Al final puede quedar de la siguiente forma:
+
+=== docker-compose.yml ===
+
+services:
+    wordpress:
+        image: postgres
+        restart: always
+        ports:
+            - 5432
+        environment:
+            POSTGRES_DB: ${DB_NAME}
+            POSTGRES_USER: ${DB_USER}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+        volumes:
+            - ./db:/var/lib/postgresql/data
+.
+
+=== .env ===
+
+# docker
+DB_NAME=thingst
+DB_USER=tester
+DB_PASSWORD=14db7d47-f442-4a90-b633-2a537c8b5c13
+
+=== 🔥Comando de ejecución ===
+
+docker compose up
+docker compose --env-file [dir_name] up
+
+
+==== Definiciones ====
+Un pool de conexiones es un conjunto limitado de conexiones a una base de datos
+que es manejado por un servidor de aplicaciones de forma tal, que dichas conexiones
+pueden ser reutilizadas por los diferentes usuarios.

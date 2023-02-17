@@ -1,0 +1,88 @@
+//Class 3
+API Rest ful
+Representational State Transfer,
+convencion para hacer servicios web con el protocolo HTTP
+- GET: obtener informacion, con o sin detalles desde la bd
+- PUT, PATCH: modificar informacion
+PUT vs PATCH
+  put enviar todos los datos a modificar
+  patch, enviar los datos exactos a modificar.
+- POST: enviar informacion para guardarla
+- DELETE: eliminar informacion
+
+
+CRUD
+- Create
+- Read
+- Update
+- Delete
+
+//Class 4
+- GET: formar de hacer un endpoint
+api.example.com/tasks/{id}
+api.example.com/people/{id}/
+api.example.com/people/{id}/tasks
+
+//Class 5
+- Query params: parametros que vienen en los endpoints
+sirve para paginado, filtrar
+api.example/products
+api.example.com/products?page=1
+api.example.com/products?limit=10&offset=0
+
+Nota: Los endspoint que sean especificos deben ir antes de los endpoints de forma dinamica
+
+//Class 8
+- PUT: se debe enviar todos los atributos para que nuestro item se actualice completamente
+- PATCH (UPDATE PARTIAL): se puede enviar uno o varios atributos necesarios para actualizar.
+- DELETE: borrar informacion
+Extra: crud users
+
+//Class 9
+- STATUS CODE: Codigos de estados, por rango
+100 - 199: respuesta de informacion
+200 - 299: respuesta satisfactoria
+    200: Todo bien
+    201: El recurso a crear, fue creado con exito
+300 - 399: redireccionamiento
+400 - 499: errores del cliente
+    400: bad request
+    401: sin autorizacion
+500 - 599: errores del servidor
+
+//Class 10
+routing, todo lo que tiene que ver con las direcciones de las peticiones
+service, contiene todos los metodos necesarios o la logica de negeocio
+
+//Clase 16
+Middleware: estan en medio del request y del response.
+Se puede tener varios middlewares y en forma secuencial.
+
+Estructura Logica de un Middleware
+function (req, res, next) {
+  if (something) {
+    res.send('end');
+  } else {
+    next();
+  }
+}
+
+next, nos permite seguir y ejecutar el siguiente middleware
+o si queremos enviar al usuario la respuesta, solo usamos el request y response.
+
+Tipos de Middlware:
+Error:
+function (err, req, res, next) {
+  if (err) {
+    res.status(500).json({error});
+  }else{
+    next();
+  }
+}
+
+Los casos de usos de los middleware:
+  Funcionan como pipes
+  Validar datos
+  Capturar errores
+  Validar permisos
+  Controlar accesos
